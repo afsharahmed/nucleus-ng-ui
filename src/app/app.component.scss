@@ -68,7 +68,6 @@
     background-color: #fafafa;
     height: auto;
     width: auto;
-    margin: 0 8px 16px;
     padding: 16px;
     display: flex;
     flex-direction: row;
@@ -269,11 +268,16 @@
     width: 300px;
     padding-bottom: 16px;
 }
-
+.form-item > label {
+    display: inline-block; 
+    min-width: 100px;
+    // background-color: #125699;
+}
 .form-item input { 
     height: 22px;
     margin-left: 6px;
     border-radius: 1px;
+    padding-left: 5px;
 }
 
 .form-button {
