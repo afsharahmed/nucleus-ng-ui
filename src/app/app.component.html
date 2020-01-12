@@ -68,10 +68,10 @@
     <div style="height: 400px; width: auto;">
       <div><h2>Configure</h2></div>
       <div class="card">
-        <form [formGroup]="configForm">
+        <div [formGroup]="configForm">
           <div class="form-item">
             <label>Device Id:</label>
-            <input class="form-control" formControlName="deviceId">
+            <input class="form-control" formControlName="deviceId" placeholder="Enter device Id">
           </div>
           <div class="form-item">
             <label>Device Type:</label>
@@ -82,17 +82,19 @@
             <input class="form-control" formControlName="frequency">
           </div>
 
-        </form>
+        </div>
       </div>
       <br>  
       <button class="form-button" (click)="startStreaming()">Start</button> Streaming data
       <br><br>
       <button class="form-button" (click)="stopStreaming()">Stop</button> Streaming data
+      <br><br>
+      <button class="form-button" (click)="submitData()">Submit</button> data
     </div>
     <div style="height: 400px; width: auto; padding-left: 100px;">
       <h2>Console</h2>
       <div class="terminal">
-        <pre *ngFor="let item of data">{{item.eventTime | date:'yyyy-MM-dd HH:mm:ss'}} | {{item.text}}</pre>
+        <pre *ngFor="let item of data">{{item.timestamp}} | {{item.value}}</pre>
       </div>
     </div>
 

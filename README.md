@@ -5,7 +5,7 @@ This project was generated with [Angular CLI] version 8.3.21.
 - Don't cd into project yet
 - ng new nucleus-ng-ui   --> Asks for certain options.. select 1. Angular Routing/Yes  2. SCSS/Select
 - Now cd nucleus-ng-ui
-- ng serve   -- Navigate to `http://localhost:4200/`. App will automatically reload if source files are changed
+- ng serve   -- Navigate to `http://localhost:4201/`. App will automatically reload if source files are changed
 
 
 ## Code scaffolding
