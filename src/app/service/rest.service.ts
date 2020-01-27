@@ -11,9 +11,7 @@ export class RestService {
     }
 
     postData(item: StreamItem): void {
-      
-
-      const serverEndpoint = `http://localhost:5000/nucleus/v1/consume`;
+      const serverEndpoint = `http://localhost:5000/nucleus/v1/stream/consume`;
       //return this.httpClient.post(`${this.api}/${serverEndpoint}`) as Observable<EdisonAIAlgorithm[]>;
       this.httpClient.post(`${serverEndpoint}`, item).subscribe();
 
