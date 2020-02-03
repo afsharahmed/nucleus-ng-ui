@@ -21,8 +21,8 @@ export class RestService {
 
 export interface StreamItem {
   deviceId: string,
-  deviceType: string,
-  timestamp: string,
+  type: string,
+  dateTime: string,
   value: string
 }
 

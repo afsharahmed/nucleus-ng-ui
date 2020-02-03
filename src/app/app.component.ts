@@ -34,11 +34,11 @@ export class AppComponent {
   startStreaming(): void {
     console.log('Starting to stream...');
     this.intervalSubscription = this.interval.subscribe(val =>  {
-    let now =this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
+      let now =this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss.SS');
       let reading = Math.floor(Math.random() * 999);
       let item: StreamItem = { 'deviceId': this.configForm.get('deviceId').value, 
-                               'deviceType': 'DICOM', 
-                               'timestamp': now, 
+                               'type': 'LOG', 
+                               'dateTime': now, 
                                'value': ''+ reading };
       this.data.unshift(item); 
       this.restService.postData(item);
