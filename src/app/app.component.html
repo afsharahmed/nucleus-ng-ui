@@ -70,12 +70,17 @@
       <div class="card">
         <div [formGroup]="configForm">
           <div class="form-item">
-            <label>Device Id:</label>
-            <input class="form-control" formControlName="deviceId" placeholder="Enter device Id">
+            <label for="devices">Device</label>
+            <select formControlName="devices" (ngModelChange)="onDeviceChange($event)" class="form-control" *ngIf="selectedDevice">
+                <option *ngFor="let device of devices" [value]="device.id" [selected]="device.name" [title]="device.name">
+                    {{device.name}}
+                </option>
+            </select>
           </div>
           <div class="form-item">
-            <label>Device Type:</label>
-            <input class="form-control" formControlName="deviceType">
+            <label>Device Details: 
+              <span style="padding-left: 10px; word-wrap: none;">{{selectedDevice?.desc}}</span>
+            </label>
           </div>
           <div class="form-item">
             <label>Data Frequency:</label>
@@ -85,16 +90,16 @@
         </div>
       </div>
       <br>  
-      <button class="form-button" (click)="startStreaming()">Start</button> Streaming data
+      <button class="form-button" (click)="startStreaming()" [disabled]="streamingStarted">Start</button> Streaming data
       <br><br>
-      <button class="form-button" (click)="stopStreaming()">Stop</button> Streaming data
+      <button class="form-button" (click)="stopStreaming()" [disabled]="!streamingStarted">Stop</button> Streaming data
       <br><br>
-      <button class="form-button" (click)="submitData()">Submit</button> data
+      <button class="form-button" (click)="clearData()" [disabled]="!data.length">Clear</button> data
     </div>
     <div style="height: 400px; width: auto; padding-left: 100px;">
       <h2>Console</h2>
       <div class="terminal">
-        <pre *ngFor="let item of data">{{item.dateTime}} | {{item.value}}</pre>
+        <pre *ngFor="let item of data">{{item.dateTime}} | {{item.value1}} | {{item.value2}} </pre>
       </div>
     </div>
 

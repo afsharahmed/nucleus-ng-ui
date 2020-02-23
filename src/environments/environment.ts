@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  //baseUrl: 'http://Nucleus-env.cjtgff3tbq.us-east-1.elasticbeanstalk.com'
+  baseUrl: 'http://localhost:5000'
 };
 
 /*
