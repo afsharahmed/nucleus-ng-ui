@@ -71,7 +71,11 @@
         <div [formGroup]="configForm">
           <div class="form-item">
             <label for="devices">Device</label>
-            <select formControlName="devices" (ngModelChange)="onDeviceChange($event)" class="form-control" *ngIf="selectedDevice">
+            <select formControlName="devices" 
+                    (ngModelChange)="onDeviceChange($event)" 
+                    class="form-control" 
+                    *ngIf="selectedDevice" 
+                    [disabled]="streamingStarted">
                 <option *ngFor="let device of devices" [value]="device.id" [selected]="device.name" [title]="device.name">
                     {{device.name}}
                 </option>

@@ -16,7 +16,10 @@ export class RestService {
     postData(item: StreamItem): void {
       const serverEndpoint = `${this.baseUrl}/nucleus/v1/stream/consume`;
       //return this.httpClient.post(`${this.api}/${serverEndpoint}`) as Observable<EdisonAIAlgorithm[]>;
-      this.httpClient.post(`${serverEndpoint}`, item).subscribe();
+      const subscription = this.httpClient.post(`${serverEndpoint}`, item).subscribe((data)=>{}, (err)=>{
+        console.log('Error occurred while sending data to server!', err);
+        subscription.unsubscribe();
+      });
     }
 
     getDevices(): Observable<Device[]> {

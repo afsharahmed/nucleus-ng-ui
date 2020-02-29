@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { interval, Subject } from 'rxjs';
+import { interval } from 'rxjs';
 import { Device, RestService, StreamItem } from './service/rest.service';
 
 @Component({
