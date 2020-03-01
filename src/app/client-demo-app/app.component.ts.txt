@@ -1,0 +1,88 @@
+import { DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { interval } from 'rxjs';
+import { Device, RestService } from './service/rest.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent implements OnInit {
+  public configForm: FormGroup;
+  title = 'Sahiapps Console';
+  
+  devices: Device[] = [];
+  selectedDeviceId: number;
+  selectedDevice: Device;
+  streamingStarted = false;
+  data = [];
+  interval: any;
+  intervalSubscription: any;
+
+  ngOnInit() {
+    this.restService.getDevices().subscribe(devices => {
+      this.devices = devices;
+      this.selectedDevice = this.devices[0];
+      this.selectedDeviceId = this.selectedDevice.id;
+    });
+  }
+
+  constructor(private formBuilder: FormBuilder, private restService: RestService, public datepipe: DatePipe) {
+    this.configForm = this.formBuilder.group({
+      devices: [{ value: this.selectedDeviceId, disabled: false }],
+      deviceType: [{ value: '', disabled: false }],
+      frequency: [{ value: '', disabled: false }]
+    });
+
+    this.interval = interval(1000);
+  }
+
+  startStreaming(): void {
+    this.setStreamingStarted(true);
+    console.log('Starting to stream for deviceId=', this.selectedDevice.id);
+
+    let stream = this.restService.getStreamData(this.selectedDevice.id+'');
+    stream.subscribe((messageEvent:MessageEvent) => {
+      const latestItem = JSON.parse(messageEvent.data);
+      const totalItems = this.data.length;
+      const lastItem = this.data[totalItems-1];
+      
+      if(totalItems > 0 && (latestItem.deviceId == lastItem.deviceId && latestItem.dateTime == lastItem.dateTime)) { 
+        console.log('No new data available at this time!'); // If server sends the same (last) item again
+        this.stopStreaming();                   // Stop streaming!
+      }
+      else {
+        this.data.unshift(latestItem);
+      }
+    }, () => {
+      console.log('Cannot get stream items at this time!');
+      this.stopStreaming();
+    });
+  }
+
+  stopStreaming() {
+    this.setStreamingStarted(false);
+    this.restService.stopStreaming();
+  }
+ 
+  clearData(): void {
+    this.data = [];
+  }
+
+  onDeviceChange(deviceId) {
+    this.selectedDeviceId = deviceId;
+    this.selectedDevice = this.devices.find(device => {return device.id == deviceId});
+    // if(this.selectedDevice.desc.length > 30) {
+    //   this.selectedDevice.desc = this.selectedDevice.desc.substr(0, 30);  
+    // }
+     
+  }
+
+  setStreamingStarted(isStarted: boolean) {
+    this.streamingStarted = isStarted;
+    const selectInput = this.configForm.controls['devices'];
+    isStarted ? selectInput.disable() : selectInput.enable();
+  }
+}
