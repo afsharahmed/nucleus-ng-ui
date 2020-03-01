@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private restService: RestService, public datepipe: DatePipe) {
     this.configForm = this.formBuilder.group({
-      devices: [this.selectedDeviceId],
+      devices: [{ value: this.selectedDeviceId, disabled: false }],
       deviceType: [{ value: '', disabled: false }],
       frequency: [{ value: '', disabled: false }]
     });
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
   }
 
   startStreaming(): void {
-    this.streamingStarted = true;
+    this.setStreamingStarted(true);
     console.log('Starting to stream...');
 
     this.intervalSubscription = this.interval.subscribe(val =>  {
@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
   }
 
   stopStreaming(): void {
-    this.streamingStarted = false;
+    this.setStreamingStarted(false);
     console.log('Stopped streaming!');
     this.intervalSubscription.unsubscribe();
   }
@@ -71,10 +71,12 @@ export class AppComponent implements OnInit {
   onDeviceChange(deviceId) {
     this.selectedDeviceId = deviceId;
     this.selectedDevice = this.devices.find(device => {return device.id == deviceId});
-    if(this.selectedDevice.desc.length > 30) {
-      this.selectedDevice.desc = this.selectedDevice.desc.substr(0, 30);  
-    }
-     
+  }
+
+  setStreamingStarted(isStarted: boolean) {
+    this.streamingStarted = isStarted;
+    const selectInput = this.configForm.controls['devices'];
+    isStarted ? selectInput.disable() : selectInput.enable();
   }
 
   generateId(length: number): string {

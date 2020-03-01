@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //baseUrl: 'http://Nucleus-env.cjtgff3tbq.us-east-1.elasticbeanstalk.com'
-  baseUrl: 'http://localhost:5000'
+  baseUrl: 'http://Nucleus-env.eba-pumx7b3y.us-east-1.elasticbeanstalk.com'
+  //baseUrl: 'http://localhost:5000'
 };
 
 /*

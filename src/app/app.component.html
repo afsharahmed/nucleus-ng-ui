@@ -74,19 +74,17 @@
             <select formControlName="devices" 
                     (ngModelChange)="onDeviceChange($event)" 
                     class="form-control" 
-                    *ngIf="selectedDevice" 
-                    [disabled]="streamingStarted">
+                    *ngIf="selectedDevice">
                 <option *ngFor="let device of devices" [value]="device.id" [selected]="device.name" [title]="device.name">
                     {{device.name}}
                 </option>
             </select>
           </div>
           <div class="form-item">
-            <label>Device Details: 
-              <span style="padding-left: 10px; word-wrap: none;">{{selectedDevice?.desc}}</span>
-            </label>
+            <div style="display: block; float: left; width: 110px; height: 45px;">Device Details: </div>
+            <div style="display: block;">{{selectedDevice?.id}}: {{selectedDevice?.desc}}</div>
           </div>
-          <div class="form-item">
+          <div class="form-item" style="clear: both; ">
             <label>Data Frequency:</label>
             <input class="form-control" formControlName="frequency">
           </div>
@@ -103,7 +101,7 @@
     <div style="height: 400px; width: auto; padding-left: 100px;">
       <h2>Console</h2>
       <div class="terminal">
-        <pre *ngFor="let item of data">{{item.dateTime}} | {{item.value1}} | {{item.value2}} </pre>
+        <pre *ngFor="let item of data">{{item.deviceId}} | {{item.dateTime}} | {{item.value1}} | {{item.value2}} </pre>
       </div>
     </div>
 
