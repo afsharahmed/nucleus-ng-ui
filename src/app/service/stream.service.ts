@@ -37,7 +37,7 @@ export class RestService {
     }
 
     getDevices(): Observable<Device[]> {
-      const serverEndpoint = `${this.baseUrl}/nucleus/v1/devices`;
+      const serverEndpoint = `${this.baseUrl}/nucleus/v1/device`;
       return this.httpClient.get(`${serverEndpoint}`) as Observable<Device[]>;
     }
   }
