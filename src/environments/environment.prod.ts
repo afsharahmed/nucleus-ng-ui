@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://Nucleus-env.cjtgff3tbq.us-east-1.elasticbeanstalk.com'
+  baseUrl: 'https://antsglobe-nucleus-iot.herokuapp.com/iot/v1'
 };

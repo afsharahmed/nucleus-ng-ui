@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://Nucleus-env.eba-pumx7b3y.us-east-1.elasticbeanstalk.com'
-  // baseUrl: 'http://localhost:5000'
+  baseUrl: 'https://antsglobe-nucleus-iot.herokuapp.com/iot/v1'
+  // baseUrl: 'http://localhost:5002/iot/v1'
 };
 
 /*

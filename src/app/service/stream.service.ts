@@ -15,7 +15,7 @@ export class RestService {
 
     getStreamData(deviceId: string) {
       return Observable.create(observer => {
-        this.eventSource = new EventSource(`${this.baseUrl}/nucleus/v1/stream/produce/${deviceId}`);
+        this.eventSource = new EventSource(`${this.baseUrl}/stream/produce/${deviceId}`);
         this.eventSource.onmessage = event => {
           this._zone.run(() => { observer.next(event) });
         };
@@ -37,7 +37,7 @@ export class RestService {
     }
 
     getDevices(): Observable<Device[]> {
-      const serverEndpoint = `${this.baseUrl}/nucleus/v1/device`;
+      const serverEndpoint = `${this.baseUrl}/device`;
       return this.httpClient.get(`${serverEndpoint}`) as Observable<Device[]>;
     }
   }

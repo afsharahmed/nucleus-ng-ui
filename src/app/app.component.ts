@@ -51,10 +51,14 @@ export class AppComponent implements OnInit {
                                'type': 'LOG', 
                                'dateTime': now, 
                                'value1': ''+ reading1,
-                               'value2': ''+ reading2,
+                               'value2': 'null'
+                              //  'value2': ''+ reading2
                               };
       this.data.unshift(item); 
-      this.restService.postData(item);
+      // this.restService.sendGetRequest(this.selectedDevice.id+"_"+now+"_LOG_"+reading1+"_"+reading2);
+      this.restService.sendGetRequest(this.selectedDevice.id+"_"+now+"_LOG_"+reading1);
+
+      // this.restService.postData(item);
     });
   }
 
